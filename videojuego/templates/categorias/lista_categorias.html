@@ -1,0 +1,32 @@
+{% extends 'base2.html' %}
+
+{% block titulo %}
+    Categorias
+{% endblock titulo %}
+
+{% block contenido %}
+    <h1 class="app-page-title">Lista de categorias</h1>
+        <div class="card">
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <th>ID</th>
+                        <th>Nombre Categoria</th>
+                        <th>Acciones</th>
+                    </thead>
+                    <tbody>
+                        {% for categoria in categorias %}
+                        <tr>
+                            <td>{{categoria.id}}</td>
+                            <td>{{categoria.nombre}}</td>
+                            <td>
+                                <a href="{% url 'categoria:editar_categoria' categoria.id %}">Editar</a>
+                                <a href="{% url 'categoria:eliminar_categoria' categoria.id %}">Eliminar</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+{% endblock contenido %}

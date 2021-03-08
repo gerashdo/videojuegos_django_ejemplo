@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videojuegos</title>
+</head>
+<body>
+    <h1>Videojuegos</h1>
+    <a href="{% url 'videojuego:nuevo_videojuego' %}">Agregar Videojuego</a>
+    <table>
+        <thead>
+            <th>ID</th>
+            <th>Titulo</th>
+            <th>Año</th>
+            <th>Categoria</th>
+            <th>Precio</th>
+            <th>Descripcion</th>
+            <th>Acciones</th>
+        </thead>
+        <tbody>
+            {% for videojuego in videojuegos %}
+                <tr>
+                    <td>{{videojuego.id}}</td>
+                    <td>{{videojuego.titulo}}</td>
+                    <td>{{videojuego.anio}}</td>
+                    <td>{{videojuego.categoria}}</td>
+                    <td>{{videojuego.precio}}</td>
+                    <td>{{videojuego.descripcion}}</td>
+                    <td>
+                        <a href="{% url 'videojuego:eliminar_videojuego' videojuego.id %}">Eliminar</a>
+                        <a href="{% url 'videojuego:editar_videojuego' videojuego.id %}">Editar</a>
+                        <a href="{% url 'videojuego:detalles_videojuego' videojuego.id %}">Detalles</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

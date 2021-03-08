@@ -1,0 +1,20 @@
+{% extends 'base2.html' %}
+
+{% block titulo %}
+    {{etiqueta}} Videojuego
+{% endblock titulo %}
+
+{% block contenido %}
+<h1 class="app-page-title">{{etiqueta}} Videojuego</h1>
+    <div class="card  p-2">
+        <div class="card-body">
+            <div class="mb-3 row">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <button type="submit" class="btn btn-secondary">{{boton}}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock contenido %}

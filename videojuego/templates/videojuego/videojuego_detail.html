@@ -1,0 +1,22 @@
+{% extends 'base2.html' %}
+
+{% block titulo %}
+    Detalles Videojuego
+{% endblock titulo %}
+
+{% block contenido %}
+<h1 class="app-page-title">Detalle Videojuego</h1>
+    <div class="card d-inline-flex">
+        <div class="card-body">
+            <h4 class="card-title">{{object.titulo}}</h1>
+            <p>{{object.categoria}}<br>
+                {{object.anio}}<br>
+                {{object.precio}}<br>
+
+                {% if object.descripcion %}
+                    {{object.descripcion}}<br>
+                {% endif %}
+            </p>
+        </div>
+    </div>
+{% endblock contenido %}
