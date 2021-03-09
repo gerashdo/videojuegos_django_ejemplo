@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Categoria, Videojuego
-from .form_categoria import CategoriaForm
-from .form_videojuego import VideojuegoForm
+from .form_categoria import CategoriaForm, VideojuegoForm
+#from .form_videojuego import VideojuegoForm
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
@@ -91,22 +91,35 @@ def nuevo_categoria(request):
 
 class VideojuegoList(ListView):
     model = Videojuego
-    #extra_context = {'variable' : valor}
+    #extra_context = {'vj-lista':True}
     #queryset = Videojuego.objects.filter(anio=1992)
 
 class VideojuegoEliminar(DeleteView):
     model = Videojuego
     success_url = reverse_lazy('videojuego:lista_videojuegos')
 
+# class VideojuegoCrear(CreateView):
+#     model = Videojuego
+#     fields = '__all__'
+#     extra_context = {'etiqueta':'Nuevo', 'boton':'Agregar'}
+#     success_url = reverse_lazy('videojuego:lista_videojuegos')
+
 class VideojuegoCrear(CreateView):
     model = Videojuego
-    fields = '__all__'
+    form_class = VideojuegoForm
     extra_context = {'etiqueta':'Nuevo', 'boton':'Agregar'}
     success_url = reverse_lazy('videojuego:lista_videojuegos')
 
+
+# class VideojuegoActualizar(UpdateView):
+#     model = Videojuego
+#     fields = '__all__'
+#     extra_context = {'etiqueta':'Actualizar', 'boton':'Guardar'}
+#     success_url = reverse_lazy('videojuego:lista_vidojuegos')
+
 class VideojuegoActualizar(UpdateView):
     model = Videojuego
-    fields = '__all__'
+    form_class = VideojuegoForm
     extra_context = {'etiqueta':'Actualizar', 'boton':'Guardar'}
     success_url = reverse_lazy('videojuego:lista_vidojuegos')
 
