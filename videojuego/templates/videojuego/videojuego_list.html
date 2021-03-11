@@ -1,4 +1,6 @@
 {% extends 'base2.html' %}
+{% load static %}
+
 {% block titulo %}
   Lista Videojuegos
 {% endblock titulo %}
@@ -28,8 +30,10 @@
                             <td>{{videojuego.descripcion}}</td>
                             <td>
                                 <a href="{% url 'videojuego:detalles_videojuego' videojuego.id %}">Detalles</a>
-                                <a href="{% url 'videojuego:eliminar_videojuego' videojuego.id %}">Eliminar</a>
                                 <a href="{% url 'videojuego:editar_videojuego' videojuego.id  %}">Editar</a>
+                                <button onclick="muestra_modal('{% url 'videojuego:eliminar_videojuego' videojuego.id %}', '{{videojuego.titulo}}')" type="button" class="btn btn-primary delete_example" data-toggle="modal" data-target="#exampleModal">
+                                    Eliminar
+                                </button>
                             </td>
                         </tr>
                         {% endfor %}
@@ -37,5 +41,33 @@
                 </table>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Eliminar Videojuego</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body" id="modal-cuerpo">
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <form id="formEliminar" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary save_changes">Aceptar</button>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock contenido %}
+
+{% block js %}
+    <script src="{% static 'js/funciones.js'%}"></script>
+  
+{% endblock js %}
         

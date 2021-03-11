@@ -5,10 +5,13 @@
 {% endblock titulo %}
 
 {% block contenido %}
-    <h1 class="app-page-title">Quieres eliminar el videojuego "{{ object }}"?</h1>
+    <!-- <h1 class="app-page-title">Quieres eliminar el videojuego "{{ object }}"?</h1>
     <form method="post">
         {% csrf_token %}
         <button type="submit" class="btn btn-primary" value="Sí, si quiero">Sí, si quiero</button>
         <a href="{% url 'videojuego:lista_videojuegos' %}">Mejor no</a>
-    </form>
+    </form> -->
+    
 {% endblock contenido %}
+
+
