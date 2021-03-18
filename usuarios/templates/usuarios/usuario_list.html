@@ -1,0 +1,43 @@
+{% extends "base2.html" %}
+{% load static %}
+
+{% block titulo %}
+    Lista de Usuarios
+{% endblock titulo %}
+
+{% block contenido %}
+    <h1 class="app-page-title">Usuarios</h1>
+    <div class="card">
+        <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Nombre de Usuario</th>
+                        <th>Estado</th>
+                        <th>Municipio</th>
+                        <th>Fotografia</th>
+                        <th>Acciones</th>
+                    </thead>
+                    <tbody>
+                        {% for usuario in object_list %}
+                        <tr>
+                            <td>{{usuario.id}}</td>
+                            <td>{{usuario.first_name}}</td>
+                            <td>{{usuario.username}}</td>
+                            <td>{{usuario.estado}}</td>
+                            <td>{{usuario.municipio}}</td>
+                            <td>
+                                
+                                {% if usuario.foto %}
+                                    <img src="{{ MEDIA_URL }}{{usuario.foto}}" alt="fotografia"></img>
+                                {% endif %}
+                                    
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+        </div>
+    </div>
+{% endblock contenido %}

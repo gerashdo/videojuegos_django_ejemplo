@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.edit import CreateView
+from django.views.generic import ListView
 from .models import Usuario, Estado, Municipio
 from .forms import UsuarioForm
 from django.urls import reverse_lazy
@@ -30,3 +31,6 @@ def obtiene_municipios(request):
         json.append({'id':municipio.id, 'nombre':municipio.nombre})
 
     return JsonResponse(json, safe=False)
+
+class UsuarioList(ListView):
+    model = Usuario
