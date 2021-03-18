@@ -9,8 +9,12 @@ class UsuarioForm(forms.ModelForm):
         fields = ('first_name','username','password','estado','municipio','foto')
 
         widgets = {
+            'first_name':forms.TextInput(attrs={'class':'form-control'}),
+            'username':forms.TextInput(attrs={'class':'form-control'}),
             'password':forms.PasswordInput(attrs={'class':'form-control','placeholder':'Contraseña'}),
-            'estado':forms.Select(attrs={'class':'form-control'})
+            'estado':forms.Select(attrs={'class':'form-control'}),
+            'municipio':forms.Select(attrs={'class':'form-control'}),
+            'foto':forms.FileInput(attrs={'class':'form-control'})
         }
 
     def save(self, commit=True):

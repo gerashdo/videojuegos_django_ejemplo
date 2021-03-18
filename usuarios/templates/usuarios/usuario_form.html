@@ -10,11 +10,13 @@
     <div class="card  p-2">
         <div class="card-body">
             <div class="mb-3 row">
-                <form method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{form.as_p}}
-                    <button type="submit" class="btn btn-secondary">{{boton}}</button>
-                </form>
+                <div class="form-group">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <button type="submit" class="btn btn-secondary">{{boton}}</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

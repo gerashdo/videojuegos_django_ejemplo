@@ -8,6 +8,10 @@ class CategoriaForm(forms.ModelForm):
 
         fields = '__all__'
 
+        widgets = {
+            'nombre':forms.TextInput(attrs={'class':'form-control'})
+        }
+
 class  VideojuegoForm(forms.ModelForm):
     class Meta:
         model = Videojuego
