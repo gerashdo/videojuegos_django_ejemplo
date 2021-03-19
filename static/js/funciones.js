@@ -4,6 +4,11 @@ function muestra_modal(url, titulo){
     document.getElementById('modal-cuerpo').innerHTML = `¿Deseas eliminar el videojuego ${titulo}?`;
 }
 
+function muestra_modal_categoria(url, nombre){
+    document.getElementById('formEliminar').action = url;
+    document.getElementById('modal-cuerpo').innerHTML = `¿Deseas eliminar la categoria ${nombre}?`;
+}
+
 $("#id_estado").on('change', function() {
     var token = $('[name="csrfmiddlewaretoken"]').val();
     $.ajax({
