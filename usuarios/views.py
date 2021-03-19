@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic import ListView
 from .models import Usuario, Estado, Municipio
 from .forms import UsuarioForm
@@ -10,7 +10,7 @@ class NuevoUsuario(CreateView):
     model = Usuario
     form_class = UsuarioForm
     extra_context = {'etiqueta':'Nuevo','boton':'Agregar'}
-    success_url = reverse_lazy('videojuego:lista_videojuegos')
+    success_url = reverse_lazy('usuarios:lista_usuario')
 
     def form_valid(self, form):
         user = form.save(commit=False)
@@ -34,3 +34,7 @@ def obtiene_municipios(request):
 
 class UsuarioList(ListView):
     model = Usuario
+
+class UsuarioEliminar(DeleteView):
+    model = Usuario
+    success_url = reverse_lazy('usuarios:lista_usuario')

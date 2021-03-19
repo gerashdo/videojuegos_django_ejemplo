@@ -9,6 +9,11 @@ function muestra_modal_categoria(url, nombre){
     document.getElementById('modal-cuerpo').innerHTML = `¿Deseas eliminar la categoria ${nombre}?`;
 }
 
+function muestra_modal_categoria(url, username){
+    document.getElementById('formEliminar').action = url;
+    document.getElementById('modal-cuerpo').innerHTML = `¿Deseas eliminar al usuario ${username}?`;
+}
+
 $("#id_estado").on('change', function() {
     var token = $('[name="csrfmiddlewaretoken"]').val();
     $.ajax({
