@@ -1,0 +1,22 @@
+{% extends 'base2.html' %}
+
+{% block titulo %}
+    Detalles Videojuego
+{% endblock titulo %}
+
+{% block contenido %}
+<h1 class="app-page-title">Detalle Videojuego</h1>
+    <div class="card d-inline-flex">
+        
+        {% if usuario.foto %}
+            <img class="card-img-top" src="{{ MEDIA_URL }}{{usuario.foto}}" alt="Fotografia">
+        {% endif %}
+        <div class="card-body">
+            <h4 class="card-title">{{usuario.username}}</h1>
+            <p>{{usuario.first_name}}<br>
+                {{usuario.estado}}<br>
+                {{usuario.municipio}}<br>
+            </p>
+        </div>
+    </div>
+{% endblock contenido %}

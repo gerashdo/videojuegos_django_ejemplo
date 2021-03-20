@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic.detail import DetailView
 from django.views.generic import ListView
 from .models import Usuario, Estado, Municipio
 from .forms import UsuarioForm
@@ -44,3 +45,6 @@ class UsuarioActualizar(UpdateView):
     form_class = UsuarioForm
     extra_context = {'etiqueta':'Editar','boton':'Guardar'}
     success_url = reverse_lazy('usuarios:lista_usuario')
+
+class UsuarioDetalle(DetailView):
+    model = Usuario
