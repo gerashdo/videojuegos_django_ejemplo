@@ -38,3 +38,9 @@ class UsuarioList(ListView):
 class UsuarioEliminar(DeleteView):
     model = Usuario
     success_url = reverse_lazy('usuarios:lista_usuario')
+
+class UsuarioActualizar(UpdateView):
+    model = Usuario
+    form_class = UsuarioForm
+    extra_context = {'etiqueta':'Editar','boton':'Guardar'}
+    success_url = reverse_lazy('usuarios:lista_usuario')
