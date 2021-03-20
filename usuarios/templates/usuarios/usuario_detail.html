@@ -5,11 +5,11 @@
 {% endblock titulo %}
 
 {% block contenido %}
-<h1 class="app-page-title">Detalle Videojuego</h1>
+<h1 class="app-page-title">Detalle Usuario</h1>
     <div class="card d-inline-flex">
         
         {% if usuario.foto %}
-            <img class="card-img-top" src="{{ MEDIA_URL }}{{usuario.foto}}" alt="Fotografia">
+            <img class="card-img-top rounded" style="width: 300px"  src="{{usuario.foto.url}}" alt="Fotografia">
         {% endif %}
         <div class="card-body">
             <h4 class="card-title">{{usuario.username}}</h1>

@@ -16,7 +16,6 @@
                         <th>Nombre de Usuario</th>
                         <th>Estado</th>
                         <th>Municipio</th>
-                        <th>Fotografia</th>
                         <th>Acciones</th>
                     </thead>
                     <tbody>
@@ -27,11 +26,6 @@
                             <td>{{usuario.username}}</td>
                             <td>{{usuario.estado}}</td>
                             <td>{{usuario.municipio}}</td>
-                            <td>
-                                {% if usuario.foto %}
-                                    <img src="{{ MEDIA_URL }}{{usuario.foto}}" alt="fotografia"></img>
-                                {% endif %}  
-                            </td>
                             <td>
                                 <a href="{% url 'usuarios:detalles_usuario' usuario.id %}">Detalles</a>
                                 <a href="{% url 'usuarios:editar_usuario' usuario.id %}">Editar</a>
