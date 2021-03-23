@@ -1,6 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.detail import DetailView
+from django.contrib.auth.views import LoginView
+from django.contrib.auth.forms import AuthenticationForm
+
 from django.views.generic import ListView
 from .models import Usuario, Estado, Municipio
 from .forms import UsuarioForm
@@ -48,3 +51,7 @@ class UsuarioActualizar(UpdateView):
 
 class UsuarioDetalle(DetailView):
     model = Usuario
+
+class UsuarioLogin(LoginView):
+    template_name = 'login.html'
+    form_class = AuthenticationForm

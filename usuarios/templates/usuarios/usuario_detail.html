@@ -1,4 +1,5 @@
 {% extends 'base2.html' %}
+{% load static %}
 
 {% block titulo %}
     Detalles Videojuego
@@ -9,7 +10,9 @@
     <div class="card d-inline-flex">
         
         {% if usuario.foto %}
-            <img class="card-img-top rounded" style="width: 300px"  src="{{usuario.foto.url}}" alt="Fotografia">
+            <img class="card-img-top rounded" style="width: 300px"  src="{{ MEDIA_URL }}{{usuario.foto}}" alt="Fotografia">
+            {% else %}
+            <img class="card-img-top rounded" style="width: 300px"  src="{% static 'images/user_profile_default.jpg' %}" alt="Fotografia">
         {% endif %}
         <div class="card-body">
             <h4 class="card-title">{{usuario.username}}</h1>
