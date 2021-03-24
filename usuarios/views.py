@@ -6,7 +6,7 @@ from django.contrib.auth.forms import AuthenticationForm
 
 from django.views.generic import ListView
 from .models import Usuario, Estado, Municipio
-from .forms import UsuarioForm
+from .forms import UsuarioForm, UsuarioRegistroForm
 from django.urls import reverse_lazy
 from django.http import JsonResponse
 
@@ -18,7 +18,18 @@ class NuevoUsuario(CreateView):
 
     def form_valid(self, form):
         user = form.save(commit=False)
-        user.is_active = 0
+        user.is_active = 1
+        return super().form_valid(form)
+
+class UsuarioRegistro(CreateView):
+    template_name = 'signup.html'
+    model = Usuario
+    form_class = UsuarioRegistroForm
+    success_url = reverse_lazy('usuarios:login_usuario')
+
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        user.is_active = 1
         return super().form_valid(form)
 
 def obtiene_municipios(request):
@@ -55,3 +66,4 @@ class UsuarioDetalle(DetailView):
 class UsuarioLogin(LoginView):
     template_name = 'login.html'
     form_class = AuthenticationForm
+

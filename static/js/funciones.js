@@ -14,6 +14,7 @@ function muestra_modal_categoria(url, username){
     document.getElementById('modal-cuerpo').innerHTML = `¿Deseas eliminar al usuario ${username}?`;
 }
 
+
 $("#id_estado").on('change', function() {
     var token = $('[name="csrfmiddlewaretoken"]').val();
     $.ajax({

@@ -11,4 +11,5 @@ urlpatterns = [
     path('editar/<int:pk>', views.UsuarioActualizar.as_view(), name='editar_usuario'),
     path('detalles/<int:pk>', views.UsuarioDetalle.as_view(), name='detalles_usuario'),
     path('login/', views.UsuarioLogin.as_view(), name='login_usuario'),
+    path('registro/', views.UsuarioRegistro.as_view(), name='registro_usuario'),
 ]
