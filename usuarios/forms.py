@@ -24,6 +24,20 @@ class UsuarioForm(forms.ModelForm):
             user.save()
         return user
 
+class UsuarioActualizarForm(forms.ModelForm):
+    class Meta:
+        model = Usuario
+
+        fields = ('first_name','username','estado','municipio','foto')
+
+        widgets = {
+            'first_name':forms.TextInput(attrs={'class':'form-control'}),
+            'username':forms.TextInput(attrs={'class':'form-control'}),
+            'estado':forms.Select(attrs={'class':'form-control'}),
+            'municipio':forms.Select(attrs={'class':'form-control'}),
+            'foto':forms.FileInput(attrs={'class':'form-control'})
+        }
+
 class UsuarioRegistroForm(forms.ModelForm):
 
     class Meta:

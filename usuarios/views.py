@@ -6,7 +6,7 @@ from django.contrib.auth.forms import AuthenticationForm
 
 from django.views.generic import ListView
 from .models import Usuario, Estado, Municipio
-from .forms import UsuarioForm, UsuarioRegistroForm
+from .forms import UsuarioForm, UsuarioRegistroForm, UsuarioActualizarForm
 from django.urls import reverse_lazy
 from django.http import JsonResponse
 
@@ -56,7 +56,7 @@ class UsuarioEliminar(DeleteView):
 
 class UsuarioActualizar(UpdateView):
     model = Usuario
-    form_class = UsuarioForm
+    form_class = UsuarioActualizarForm
     extra_context = {'etiqueta':'Editar','boton':'Guardar'}
     success_url = reverse_lazy('usuarios:lista_usuario')
 
