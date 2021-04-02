@@ -23,9 +23,13 @@
 					<div class="auth-form-container text-left mx-auto">
 						<form class="auth-form auth-signup-form" method="POST">
                             {% csrf_token %}         
-							<div class="email mb-3">
+							<div class="mb-3">
 								<label class="sr-only" for="id_username">Nombre de Usuario</label>
 								<input id="id_username" name="username" type="text" class="form-control signup-name" placeholder="Usuario" required="required">
+							</div>
+							<div class="email mb-3">
+								<label class="sr-only" for="id_username">Email</label>
+								<input id="id_email" name="email" type="text" class="form-control signup-email" placeholder="Email" required="required">
 							</div>
 							<div class="password mb-3">
 								<label class="sr-only" for="id_password">Contraseña</label>

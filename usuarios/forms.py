@@ -6,11 +6,12 @@ class UsuarioForm(forms.ModelForm):
     class Meta:
         model = Usuario
 
-        fields = ('first_name','username','password','estado','municipio','foto')
+        fields = ('first_name','username','password','email','estado','municipio','foto')
 
         widgets = {
             'first_name':forms.TextInput(attrs={'class':'form-control'}),
             'username':forms.TextInput(attrs={'class':'form-control'}),
+            'email':forms.EmailInput(attrs={'class':'form-control'}),
             'password':forms.PasswordInput(attrs={'class':'form-control','placeholder':'Contraseña'}),
             'estado':forms.Select(attrs={'class':'form-control'}),
             'municipio':forms.Select(attrs={'class':'form-control'}),
@@ -28,11 +29,12 @@ class UsuarioActualizarForm(forms.ModelForm):
     class Meta:
         model = Usuario
 
-        fields = ('first_name','username','estado','municipio','foto')
+        fields = ('first_name','username','email','estado','municipio','foto')
 
         widgets = {
             'first_name':forms.TextInput(attrs={'class':'form-control'}),
             'username':forms.TextInput(attrs={'class':'form-control'}),
+            'email':forms.EmailInput(attrs={'class':'form-control'}),
             'estado':forms.Select(attrs={'class':'form-control'}),
             'municipio':forms.Select(attrs={'class':'form-control'}),
             'foto':forms.FileInput(attrs={'class':'form-control'})
@@ -43,7 +45,7 @@ class UsuarioRegistroForm(forms.ModelForm):
     class Meta:
         model = Usuario
         
-        fields = ('username','password','estado','municipio')
+        fields = ('username','password','email','estado','municipio')
 
         widgets = {
             'estado':forms.Select(attrs={'class':'form-control'}),

@@ -121,3 +121,9 @@ LOGOUT_REDIRECT_URL = reverse_lazy('usuarios:login_usuario')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'testdjango.ger@gmail.com'
+EMAIL_HOST_PASSWORD = 'testdjangoger.35'
+EMAIL_PORT = 587
