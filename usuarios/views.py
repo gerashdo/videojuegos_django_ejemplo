@@ -1,3 +1,5 @@
+import functools
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.detail import DetailView
@@ -16,6 +18,9 @@ from django.http import JsonResponse
 from django.core.mail import EmailMessage
 from django.views.generic import TemplateView
 from django.contrib import messages
+from django_weasyprint import WeasyTemplateResponseMixin
+from django_weasyprint.views import CONTENT_TYPE_PNG, WeasyTemplateResponse
+from django.conf import settings
 
 class NuevoUsuario(CreateView):
     model = Usuario
@@ -115,3 +120,17 @@ class UsuarioLogin(LoginView):
     template_name = 'login.html'
     form_class = AuthenticationForm
 
+class VistaPdf(ListView):
+    model = Usuario
+    template_name = 'usuarios/usuario_pdf.html'
+
+class UsuarioListPdf(WeasyTemplateResponseMixin, VistaPdf):
+    # output of MyModelView rendered as PDF with hardcoded CSS
+    pdf_stylesheets = [
+        settings.STATICFILES_DIRS[0] + '/css/portal.css',
+        settings.STATICFILES_DIRS[0] + '/css/estilos.css',
+    ]
+    # show pdf in-line (default: True, show download dialog)
+    pdf_attachment = False
+    # custom response class to configure url-fetcher
+    pdf_name = 'foo.pdf'

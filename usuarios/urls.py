@@ -5,6 +5,7 @@ app_name = 'usuarios'
 
 urlpatterns = [
     path('lista/', views.UsuarioList.as_view(), name='lista_usuario'),
+    path('lista-pdf/', views.UsuarioListPdf.as_view(), name='lista_pdf_usuario'),
     path('nuevo/', views.NuevoUsuario.as_view(), name='nuevo_usuario'),
     path('municipios/', views.obtiene_municipios, name='obtiene_municipios'),
     path('activar/<slug:uid64>/<slug:token>', views.ActivarCuenta.as_view(), name='activar_cuenta'),

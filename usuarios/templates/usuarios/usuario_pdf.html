@@ -1,13 +1,5 @@
-{% extends "base2.html" %}
-{% load static %}
 
-{% block titulo %}
-    Lista de Usuarios
-{% endblock titulo %}
-
-{% block contenido %}
     <h1 class="app-page-title">Usuarios</h1>
-    <div class="card">
         <div class="card-body">
                 <table class="table">
                     <thead>
@@ -16,7 +8,6 @@
                         <th>Nombre de Usuario</th>
                         <th>Estado</th>
                         <th>Municipio</th>
-                        <th>Acciones</th>
                     </thead>
                     <tbody>
                         {% for usuario in object_list %}
@@ -26,21 +17,10 @@
                             <td>{{usuario.username}}</td>
                             <td>{{usuario.estado}}</td>
                             <td>{{usuario.municipio}}</td>
-                            <td>
-                                <a href="{% url 'usuarios:detalles_usuario' usuario.id %}">Detalles</a>
-                                <a href="{% url 'usuarios:editar_usuario' usuario.id %}">Editar</a>
-                                <button onclick="muestra_modal('{% url 'usuarios:eliminar_usuario' usuario.id %}', '{{usuario.username}}')" type="button" class="btn btn-primary delete_example" data-toggle="modal" data-target="#exampleModal">
-                                    Eliminar
-                                </button>
-                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
-                <a href="{% url 'usuarios:lista_pdf_usuario' %}" target="_blank">
-                    <button type="button" class="btn btn-primary">Imprimir</button>
-                </a>
-        </div>
     </div>
 
     <!-- Modal -->
@@ -65,8 +45,3 @@
             </div>
         </div>
     </div>
-{% endblock contenido %}
-
-{% block js %}
-    <script src="{% static 'js/funciones.js'%}"></script>
-{% endblock js %}
