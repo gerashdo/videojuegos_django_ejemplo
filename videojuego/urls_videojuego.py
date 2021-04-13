@@ -9,4 +9,5 @@ urlpatterns = [
     path('eliminar/<int:pk>', views.VideojuegoEliminar.as_view(), name='eliminar_videojuego'),
     path('editar/<int:pk>', views.VideojuegoActualizar.as_view(), name='editar_videojuego'),
     path('detalles/<int:pk>', views.VideojuegoDetalle.as_view(), name='detalles_videojuego'),
+    path('grafica/', views.Grafica.as_view(), name='grafica_videojuego'),
 ]

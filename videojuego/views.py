@@ -2,10 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Categoria, Videojuego
 from .form_categoria import CategoriaForm, VideojuegoForm
 #from .form_videojuego import VideojuegoForm
-from django.views.generic import ListView
+from django.views.generic import ListView, TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.urls import reverse_lazy
+from django.db.models import Count
 
 # CATEGORIAS
 def lista_categoria(request):
@@ -125,3 +126,23 @@ class VideojuegoActualizar(UpdateView):
 
 class VideojuegoDetalle(DetailView):
     model = Videojuego
+
+class Grafica(TemplateView):
+    template_name = 'videojuego/grafica.html'
+    
+    def get(self, request, *args, **kwargs):
+        vide_categoria = Videojuego.objects.all().values('categoria').annotate(cuantos=Count('categoria'))
+        categorias = Categoria.objects.all()
+    
+        datos = []
+        for categoria in categorias:
+            cuantos = 0
+            for vid_cat in vide_categoria: 
+                if vid_cat['categoria'] == categoria.id:
+                    cuantos = vid_cat['cuantos']
+                    break
+            datos.append({'name':categoria.nombre, 'data':[cuantos]})
+    
+        self.extra_context = {'datos': datos}
+        context = self.get_context_data(**kwargs)
+        return self.render_to_response(context)
