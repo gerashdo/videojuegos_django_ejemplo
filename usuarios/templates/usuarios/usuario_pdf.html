@@ -1,47 +1,22 @@
 
-    <h1 class="app-page-title">Usuarios</h1>
-        <div class="card-body">
-                <table class="table">
-                    <thead>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Nombre de Usuario</th>
-                        <th>Estado</th>
-                        <th>Municipio</th>
-                    </thead>
-                    <tbody>
-                        {% for usuario in object_list %}
-                        <tr>
-                            <td>{{usuario.id}}</td>
-                            <td>{{usuario.first_name}}</td>
-                            <td>{{usuario.username}}</td>
-                            <td>{{usuario.estado}}</td>
-                            <td>{{usuario.municipio}}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Eliminar Videojuego</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <div class="modal-body" id="modal-cuerpo">
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <form id="formEliminar" method="POST">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-primary save_changes">Aceptar</button>
-                </form>
-                </div>
-            </div>
-        </div>
-    </div>
+<h1 class="app-page-title">Usuarios</h1>
+<table class="table">
+    <thead>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Nombre de Usuario</th>
+        <th>Estado</th>
+        <th>Municipio</th>
+    </thead>
+    <tbody>
+        {% for usuario in object_list %}
+        <tr>
+            <td>{{usuario.id}}</td>
+            <td>{{usuario.first_name}}</td>
+            <td>{{usuario.username}}</td>
+            <td>{{usuario.estado}}</td>
+            <td>{{usuario.municipio}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
