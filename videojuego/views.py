@@ -7,6 +7,8 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.urls import reverse_lazy
 from django.db.models import Count
+from django_weasyprint import WeasyTemplateResponseMixin
+from django.conf import settings
 
 # CATEGORIAS
 def lista_categoria(request):
@@ -146,3 +148,18 @@ class Grafica(TemplateView):
         self.extra_context = {'datos': datos}
         context = self.get_context_data(**kwargs)
         return self.render_to_response(context)
+
+class VistaPdf(ListView):
+    model = Videojuego
+    template_name = 'videojuego/videojuego_lista_pdf.html'
+
+class VideojuegoListPdf(WeasyTemplateResponseMixin, VistaPdf):
+    # output of MyModelView rendered as PDF with hardcoded CSS
+    pdf_stylesheets = [
+        settings.STATICFILES_DIRS[0] + '/css/portal.css',
+        settings.STATICFILES_DIRS[0] + '/css/estilos.css',
+    ]
+    # show pdf in-line (default: True, show download dialog)
+    pdf_attachment = False
+    # custom response class to configure url-fetcher
+    pdf_name = 'Videojuegos.pdf'

@@ -1,0 +1,28 @@
+
+<h1 class="app-page-title">VideoJuegos</h1>
+<table class="table">
+    <thead>
+        <th>ID</th>
+        <th>Titulo</th>
+        <th>Año</th>
+        <th>Categoria</th>
+        <th>Precio</th>
+        <th>Descripcion</th>
+    </thead>
+    <tbody>
+        {% for videojuego in object_list %}
+        <tr>
+            <td>{{videojuego.id}}</td>
+            <td>{{videojuego.titulo}}</td>
+            <td>{{videojuego.anio}}</td>
+            <td>{{videojuego.categoria}}</td>
+            <td>{{videojuego.precio}}</td>
+            <td>
+                {% if videojuego.descripcion %}
+                {{videojuego.descripcion}}
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
