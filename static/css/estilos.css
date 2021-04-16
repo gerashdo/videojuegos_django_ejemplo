@@ -28,3 +28,7 @@
 h1{
     string-set: heading content();
 }
+
+strong{
+    font-weight: bold;
+}

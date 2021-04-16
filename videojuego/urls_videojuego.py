@@ -11,4 +11,5 @@ urlpatterns = [
     path('detalles/<int:pk>', views.VideojuegoDetalle.as_view(), name='detalles_videojuego'),
     path('grafica/', views.Grafica.as_view(), name='grafica_videojuego'),
     path('lista-pdf/', views.VideojuegoListPdf.as_view(), name='lista_pdf_videojuego'),
+    path('vidojuego-pdf/<int:pk>', views.VideojuegoDetallePdf.as_view(), name='detalle_pdf_videojuego'),
 ]

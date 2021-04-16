@@ -163,3 +163,18 @@ class VideojuegoListPdf(WeasyTemplateResponseMixin, VistaPdf):
     pdf_attachment = False
     # custom response class to configure url-fetcher
     pdf_name = 'Videojuegos.pdf'
+
+class VistaVideojuegoDetallePdf(DetailView):
+    model = Videojuego
+    template_name = 'videojuego/videojuego_Detalle_pdf.html'
+
+class VideojuegoDetallePdf(WeasyTemplateResponseMixin, VistaVideojuegoDetallePdf):
+     # output of MyModelView rendered as PDF with hardcoded CSS
+    pdf_stylesheets = [
+        settings.STATICFILES_DIRS[0] + '/css/portal.css',
+        settings.STATICFILES_DIRS[0] + '/css/estilos.css',
+    ]
+    # show pdf in-line (default: True, show download dialog)
+    pdf_attachment = False
+    # custom response class to configure url-fetcher
+    pdf_name = 'Videojuego_Detalle.pdf'

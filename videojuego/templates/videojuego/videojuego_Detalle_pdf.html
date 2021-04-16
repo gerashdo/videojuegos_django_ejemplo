@@ -1,0 +1,11 @@
+
+<h1 class="app-page-title">Detalle Videojuego</h1>
+<h4 class="card-title">{{object.titulo}}</h1>
+<p><strong>Categoria:</strong>  {{object.categoria}}<br>
+    <strong>Año:</strong> {{object.anio}}<br>
+    <strong>Precio:</strong> {{object.precio}}<br>
+
+    {% if object.descripcion %}
+        <strong>Descripcion:</strong> {{object.descripcion}}<br>
+    {% endif %}
+</p>
