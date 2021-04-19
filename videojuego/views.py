@@ -93,6 +93,7 @@ def nuevo_categoria(request):
 #     return render(request, 'editar_videojuego.html', context)
 
 class VideojuegoList(ListView):
+    paginate_by = 1
     model = Videojuego
     #extra_context = {'vj-lista':True}
     #queryset = Videojuego.objects.filter(anio=1992)
