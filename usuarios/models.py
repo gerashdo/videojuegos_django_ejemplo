@@ -8,6 +8,9 @@ class Usuario(User):
     estado = models.ForeignKey("usuarios.Estado", verbose_name="Estado", on_delete=models.CASCADE)
     municipio = models.ForeignKey("usuarios.Municipio", verbose_name="Municipio", on_delete=models.CASCADE)
     foto = models.ImageField("Foto de perfil", upload_to='perfiles', blank=True, null=True)
+    
+    class Meta:
+        permissions = [('permiso_usuario','usuario')]
 
 
 class Estado(models.Model):

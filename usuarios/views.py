@@ -21,6 +21,8 @@ from django.contrib import messages
 from django_weasyprint import WeasyTemplateResponseMixin
 from django_weasyprint.views import CONTENT_TYPE_PNG, WeasyTemplateResponse
 from django.conf import settings
+from django.contrib.auth.models import Group
+from django import template
 
 class NuevoUsuario(CreateView):
     model = Usuario
@@ -30,7 +32,10 @@ class NuevoUsuario(CreateView):
 
     def form_valid(self, form):
         user = form.save(commit=False)
-        user.is_active = 1
+        user.is_active = True
+        user.save()
+        grupo = Group.objects.get(name='usuario') 
+        user.groups.add(grupo)
         return super().form_valid(form)
 
 class UsuarioRegistro(CreateView):
@@ -43,6 +48,8 @@ class UsuarioRegistro(CreateView):
         user = form.save(commit=False)
         user.is_active = False
         user.save()
+        grupo = Group.objects.get(name='usuario') 
+        user.groups.add(grupo)
 
         dominio = get_current_site(self.request)
         uid = urlsafe_base64_encode(force_bytes(user.id))
@@ -102,6 +109,9 @@ def obtiene_municipios(request):
 
 class UsuarioList(ListView):
     model = Usuario
+    usuario = Group.objects.get(name='usuario')
+    administrador = Group.objects.get(name='administrador')
+    extra_context = {'usuario_grupo':usuario, 'admin_grupo':administrador}
 
 class UsuarioEliminar(DeleteView):
     model = Usuario
@@ -120,6 +130,30 @@ class UsuarioLogin(LoginView):
     template_name = 'login.html'
     form_class = AuthenticationForm
 
+def UsuarioDarUsuario(request,pk):
+    usuario = Usuario.objects.get(id=pk)
+    grupo = Group.objects.get(name='usuario') 
+    usuario.groups.add(grupo)
+    return redirect('usuarios:lista_usuario')
+
+def UsuarioDarAdministrador(request,pk):
+    usuario = Usuario.objects.get(id=pk)
+    grupo = Group.objects.get(name='administrador') 
+    usuario.groups.add(grupo)
+    return redirect('usuarios:lista_usuario')
+
+def UsuarioQuitarUsuario(request,pk):
+    usuario = Usuario.objects.get(id=pk)
+    grupo = Group.objects.get(name='usuario') 
+    usuario.groups.remove(grupo)
+    return redirect('usuarios:lista_usuario')
+
+def UsuarioQuitarAdministrador(request,pk):
+    usuario = Usuario.objects.get(id=pk)
+    grupo = Group.objects.get(name='administrador') 
+    usuario.groups.remove(grupo)
+    return redirect('usuarios:lista_usuario')
+
 class VistaPdf(ListView):
     model = Usuario
     template_name = 'usuarios/usuario_pdf.html'
@@ -134,3 +168,4 @@ class UsuarioListPdf(WeasyTemplateResponseMixin, VistaPdf):
     pdf_attachment = False
     # custom response class to configure url-fetcher
     pdf_name = 'foo.pdf'
+

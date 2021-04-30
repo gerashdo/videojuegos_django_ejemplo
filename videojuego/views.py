@@ -114,7 +114,6 @@ class VideojuegoCrear(CreateView):
     extra_context = {'etiqueta':'Nuevo', 'boton':'Agregar'}
     success_url = reverse_lazy('videojuego:lista_videojuegos')
 
-
 # class VideojuegoActualizar(UpdateView):
 #     model = Videojuego
 #     fields = '__all__'

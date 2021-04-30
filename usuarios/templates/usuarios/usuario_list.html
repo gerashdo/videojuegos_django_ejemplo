@@ -17,6 +17,8 @@
                         <th>Estado</th>
                         <th>Municipio</th>
                         <th>Acciones</th>
+                        <th>Usuario</th>
+                        <th>Administrador</th>
                     </thead>
                     <tbody>
                         {% for usuario in object_list %}
@@ -32,6 +34,26 @@
                                 <button onclick="muestra_modal('{% url 'usuarios:eliminar_usuario' usuario.id %}', '{{usuario.username}}')" type="button" class="btn btn-primary delete_example" data-toggle="modal" data-target="#exampleModal">
                                     Eliminar
                                 </button>
+                            </td>
+                            <td>
+                                <!-- {% for group in usuario.groups.all %}
+                                  <p>{{group}}</p>
+                                {% endfor %} -->
+
+                                <a href="{% url 'usuarios:dar_usuario_usuario' usuario.id %}">
+                                    <button class="btn btn-primary {% if usuario_grupo in usuario.groups.all %}disabled{% endif %}" type="button"  >Dar</button>
+                                </a>
+                                <a href="{% url 'usuarios:quitar_usuario_usuario' usuario.id %}">
+                                    <button class="btn btn-primary {% if usuario_grupo in usuario.groups.all %}{% else %}disabled{% endif %}" type="button">Quitar</button>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{% url 'usuarios:dar_administrador_usuario' usuario.id %}">
+                                    <button class="btn btn-primary {% if admin_grupo in usuario.groups.all %}disabled{% endif %}" type="button"  >Dar</button>
+                                </a>
+                                <a href="{% url 'usuarios:quitar_administrador_usuario' usuario.id %}">
+                                    <button class="btn btn-primary {% if admin_grupo in usuario.groups.all %}{% else %}disabled{% endif %}" type="button">Quitar</button>
+                                </a>
                             </td>
                         </tr>
                         {% endfor %}
