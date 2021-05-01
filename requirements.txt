@@ -3,3 +3,4 @@ Pillow
 six
 mysqlclient
 django-weasyprint
+djangorestframework

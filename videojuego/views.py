@@ -9,6 +9,9 @@ from django.urls import reverse_lazy
 from django.db.models import Count
 from django_weasyprint import WeasyTemplateResponseMixin
 from django.conf import settings
+from rest_framework import viewsets
+from rest_framework import permissions
+from .serializers import VideojuegoSerializer, CategoriaSerializer
 
 # CATEGORIAS
 def lista_categoria(request):
@@ -178,3 +181,14 @@ class VideojuegoDetallePdf(WeasyTemplateResponseMixin, VistaVideojuegoDetallePdf
     pdf_attachment = False
     # custom response class to configure url-fetcher
     pdf_name = 'Videojuego_Detalle.pdf'
+
+class VideojuegoViewSet(viewsets.ModelViewSet):
+    queryset = Videojuego.objects.all().order_by('id')
+    serializer_class = VideojuegoSerializer
+    # permission_classes = [permissions.IsAuthenticated]
+
+
+class CategoriaViewSet(viewsets.ModelViewSet):
+    queryset = Categoria.objects.all().order_by('id')
+    serializer_class = CategoriaSerializer
+    # permission_classes = [permissions.IsAuthenticated]

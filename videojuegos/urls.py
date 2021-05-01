@@ -17,10 +17,18 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework import routers
+from videojuego.views import VideojuegoViewSet, CategoriaViewSet
+
+router = routers.DefaultRouter()
+router.register(r'videojuegos-api', VideojuegoViewSet)
+router.register(r'categorias-api', CategoriaViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('videojuegos/', include('videojuego.urls_videojuego')),
     path('categorias/', include('videojuego.urls_categoria')),
     path('usuarios/', include('usuarios.urls')),
+    path('', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
