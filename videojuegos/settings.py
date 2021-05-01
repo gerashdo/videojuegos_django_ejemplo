@@ -28,7 +28,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'videojuego',
-    'usuarios'
+    'usuarios',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
