@@ -16,6 +16,5 @@ urlpatterns = [
     path('registro/', views.UsuarioRegistro.as_view(), name='registro_usuario'),
     path('dar-usuario/<int:pk>', views.UsuarioDarUsuario, name='dar_usuario_usuario'),
     path('dar-administrador/<int:pk>', views.UsuarioDarAdministrador, name='dar_administrador_usuario'),
-    path('quitar-usuario/<int:pk>', views.UsuarioQuitarUsuario, name='quitar_usuario_usuario'),
-    path('quitar-administrador/<int:pk>', views.UsuarioQuitarAdministrador, name='quitar_administrador_usuario'),
+    path('modificar-grupo/<int:user_id>/<int:grupo_id>/<int:opcion>', views.UsuarioModificarGrupo, name='modificar_grupo_usuario'),
 ]

@@ -109,9 +109,11 @@ def obtiene_municipios(request):
 
 class UsuarioList(ListView):
     model = Usuario
-    usuario = Group.objects.get(name='usuario')
-    administrador = Group.objects.get(name='administrador')
-    extra_context = {'usuario_grupo':usuario, 'admin_grupo':administrador}
+    # usuario = Group.objects.get(name='usuario')
+    # administrador = Group.objects.get(name='administrador')
+    grupos = Group.objects.all()
+    # extra_context = {'usuario_grupo':usuario, 'admin_grupo':administrador}
+    extra_context = {'grupos':grupos}
 
 class UsuarioEliminar(DeleteView):
     model = Usuario
@@ -142,16 +144,25 @@ def UsuarioDarAdministrador(request,pk):
     usuario.groups.add(grupo)
     return redirect('usuarios:lista_usuario')
 
-def UsuarioQuitarUsuario(request,pk):
-    usuario = Usuario.objects.get(id=pk)
-    grupo = Group.objects.get(name='usuario') 
-    usuario.groups.remove(grupo)
-    return redirect('usuarios:lista_usuario')
+def UsuarioModificarGrupo(request, user_id, grupo_id, opcion):
+    grupo = Group.objects.get(id=grupo_id)
+    usuario = Usuario.objects.get(id=user_id)
+    if opcion == 0:
+        if grupo not in usuario.groups.all():
+            messages.error(request, f'El usuario {usuario.username} no pertenece al grupo {grupo.name}.')
+        else:
+            if usuario.groups.count() <= 1:
+                messages.error(request, f'El usuario {usuario.username} no puede quedar sin un grupo.')
+            else:
+                usuario.groups.remove(grupo)
+                messages.success(request, f'El usuario {usuario.username} ya no pertenece al grupo {grupo.name}.')
+    elif opcion == 1:
+        if grupo in usuario.groups.all():
+            messages.error(request, f'El usuario {usuario.username} ya pertenece al grupo {grupo.name}.')
+        else:
+            usuario.groups.add(grupo)
+            messages.success(request, f'El usuario {usuario.username} pertenece al grupo {grupo.name}.')
 
-def UsuarioQuitarAdministrador(request,pk):
-    usuario = Usuario.objects.get(id=pk)
-    grupo = Group.objects.get(name='administrador') 
-    usuario.groups.remove(grupo)
     return redirect('usuarios:lista_usuario')
 
 class VistaPdf(ListView):

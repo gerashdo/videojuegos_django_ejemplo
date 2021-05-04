@@ -6,6 +6,16 @@
 {% endblock titulo %}
 
 {% block contenido %}
+    
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{% if message.tags == 'error' %}warning{% else %}success{% endif %}">
+                {{message}}
+            </div>
+        {% endfor %}
+    {% endif %}
+        
+
     <h1 class="app-page-title">Usuarios</h1>
     <div class="card">
         <div class="card-body">
@@ -17,8 +27,9 @@
                         <th>Estado</th>
                         <th>Municipio</th>
                         <th>Acciones</th>
-                        <th>Usuario</th>
-                        <th>Administrador</th>
+                        {% for grupo in grupos %}
+                            <th>{{grupo}}</th>
+                        {% endfor %}
                     </thead>
                     <tbody>
                         {% for usuario in object_list %}
@@ -35,26 +46,17 @@
                                     Eliminar
                                 </button>
                             </td>
-                            <td>
-                                <!-- {% for group in usuario.groups.all %}
-                                  <p>{{group}}</p>
-                                {% endfor %} -->
-
-                                <a href="{% url 'usuarios:dar_usuario_usuario' usuario.id %}">
-                                    <button class="btn btn-primary {% if usuario_grupo in usuario.groups.all %}disabled{% endif %}" type="button"  >Dar</button>
-                                </a>
-                                <a href="{% url 'usuarios:quitar_usuario_usuario' usuario.id %}">
-                                    <button class="btn btn-primary {% if usuario_grupo in usuario.groups.all %}{% else %}disabled{% endif %}" type="button">Quitar</button>
-                                </a>
-                            </td>
-                            <td>
-                                <a href="{% url 'usuarios:dar_administrador_usuario' usuario.id %}">
-                                    <button class="btn btn-primary {% if admin_grupo in usuario.groups.all %}disabled{% endif %}" type="button"  >Dar</button>
-                                </a>
-                                <a href="{% url 'usuarios:quitar_administrador_usuario' usuario.id %}">
-                                    <button class="btn btn-primary {% if admin_grupo in usuario.groups.all %}{% else %}disabled{% endif %}" type="button">Quitar</button>
-                                </a>
-                            </td>
+                            {% for grupo in grupos %}
+                                <td>
+                                    <a href="{% url 'usuarios:modificar_grupo_usuario' usuario.id grupo.id 1 %}">
+                                        <button class="btn btn-primary {% if grupo in usuario.groups.all %}disabled{% endif %}" type="button"  >Dar</button>
+                                    </a>
+                                    <a href="{% url 'usuarios:modificar_grupo_usuario' usuario.id grupo.id 0 %}">
+                                        <button class="btn btn-primary {% if grupo in usuario.groups.all %}{% else %}disabled{% endif %}" type="button">Quitar</button>
+                                    </a>
+                                </td>
+                            {% endfor %}
+                            
                         </tr>
                         {% endfor %}
                     </tbody>
