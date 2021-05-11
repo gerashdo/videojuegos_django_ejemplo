@@ -131,6 +131,12 @@ class UsuarioDetalle(DetailView):
 class UsuarioLogin(LoginView):
     template_name = 'login.html'
     form_class = AuthenticationForm
+    
+    def get_success_url(self):
+        self.request.session['cuantos'] = 0
+        self.request.session['total'] = 0.0
+        self.request.session['videojuegos'] = {}
+        return super().get_success_url()
 
 def UsuarioDarUsuario(request,pk):
     usuario = Usuario.objects.get(id=pk)

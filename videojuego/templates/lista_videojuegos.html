@@ -1,41 +1,76 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Videojuegos</title>
-</head>
-<body>
-    <h1>Videojuegos</h1>
-    <a href="{% url 'videojuego:nuevo_videojuego' %}">Agregar Videojuego</a>
-    <table>
-        <thead>
-            <th>ID</th>
-            <th>Titulo</th>
-            <th>Año</th>
-            <th>Categoria</th>
-            <th>Precio</th>
-            <th>Descripcion</th>
-            <th>Acciones</th>
-        </thead>
-        <tbody>
-            {% for videojuego in videojuegos %}
-                <tr>
-                    <td>{{videojuego.id}}</td>
-                    <td>{{videojuego.titulo}}</td>
-                    <td>{{videojuego.anio}}</td>
-                    <td>{{videojuego.categoria}}</td>
-                    <td>{{videojuego.precio}}</td>
-                    <td>{{videojuego.descripcion}}</td>
-                    <td>
-                        <a href="{% url 'videojuego:eliminar_videojuego' videojuego.id %}">Eliminar</a>
-                        <a href="{% url 'videojuego:editar_videojuego' videojuego.id %}">Editar</a>
-                        <a href="{% url 'videojuego:detalles_videojuego' videojuego.id %}">Detalles</a>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</body>
-</html>
+{% extends 'base2.html' %}
+
+
+{% block titulo %}
+    Compra Videojuego
+{% endblock titulo %}
+    
+
+{% block contenido %}
+<h1>Compra Videojuegos</h1>
+<div class="card">
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <th>Titulo</th>
+                <th>Año</th>
+                <th>Categoria</th>
+                <th>Existencia</th>
+                <th>Precio</th>
+                <th></th>
+            </thead>
+            <tbody>
+                {% for videojuego in object_list %}
+                    <tr>
+                        <td>{{videojuego.titulo}}</td>
+                        <td>{{videojuego.anio}}</td>
+                        <td>{{videojuego.categoria}}</td>
+                        <td>{{videojuego.stock}}</td>
+                        <td>{{videojuego.precio}}</td>
+                        <td>
+                            <a href="{% url 'videojuego:comprar_videojuego' videojuego.id %}"><button class="btn btn-primary {% if videojuego.stock < 1 %}disabled{% endif %}">
+                                <i class="fas fa-cart-plus"></i>
+                            </button></a>
+                            <a href="">Detalles</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="pagination d-flex justify-content-center">
+        <ul class="pagination ">
+            <li class="page-item {% if page_obj.has_previous %}{% else %}disabled{% endif %}">
+                <a class="page-link" href="?page=1">Inicio</a>
+            </li>
+            <li class="page-item {% if page_obj.has_previous %}{% else %}disabled{% endif %}">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            {% for page in page_obj.paginator.page_range %}
+                {% if page_obj.number == page %}
+                    <li class='page-item active'>
+                        <a class='page-link' href="?page={{ page }}">{{page}}</a>
+                    </li>
+                {% else %}
+                    <li class='page-item'>
+                        <a class='page-link' href="?page={{ page }}">{{page}}</a>
+                    </li>
+                {% endif %}
+            {%endfor%}
+            <li class="page-item {% if page_obj.has_next %}{% else %}disabled{% endif %}">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+            <li class="page-item {% if page_obj.has_next %}{% else %}disabled{% endif %}">
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Fin</a>
+            </li>
+        </ul>
+    </div>
+{% endblock contenido %}

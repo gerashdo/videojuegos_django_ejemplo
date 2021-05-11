@@ -1,3 +1,5 @@
+from django.db.models.fields.related import ForeignKey
+from videojuegos import usuarios
 from django.db import models
 
 class Videojuego(models.Model):
@@ -6,6 +8,7 @@ class Videojuego(models.Model):
     anio = models.IntegerField('Año')
     categoria = models.ForeignKey("videojuego.Categoria", verbose_name='categoria', on_delete=models.CASCADE)
     precio = models.DecimalField(max_digits=5, decimal_places=2)
+    stock = models.IntegerField('Stock')
     descripcion = models.CharField('Descripción',max_length=250, null=True, blank=True) 
 
     def __str__(self):
@@ -16,3 +19,10 @@ class Categoria(models.Model):
 
     def __str__(self):
         return self.nombre
+
+class Venta(models.Model):
+    fecha
+    usuario
+
+class DetalleVenta(models.Model):
+    videojuego = models.ForeignKey("videojuego.Videojuego", verbose_name="Videojuego", on_delete=models.CASCADE)

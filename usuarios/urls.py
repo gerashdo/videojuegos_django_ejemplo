@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from django.contrib.auth.views import LogoutView
 
 app_name = 'usuarios'
 
@@ -17,4 +18,5 @@ urlpatterns = [
     path('dar-usuario/<int:pk>', views.UsuarioDarUsuario, name='dar_usuario_usuario'),
     path('dar-administrador/<int:pk>', views.UsuarioDarAdministrador, name='dar_administrador_usuario'),
     path('modificar-grupo/<int:user_id>/<int:grupo_id>/<int:opcion>', views.UsuarioModificarGrupo, name='modificar_grupo_usuario'),
+    path("logout/", LogoutView.as_view(), name="logout"),
 ]

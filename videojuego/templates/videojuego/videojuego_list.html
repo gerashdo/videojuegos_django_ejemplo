@@ -16,6 +16,7 @@
                         <th>Año</th>
                         <th>Categoria</th>
                         <th>Precio</th>
+                        <th>Sock</th>
                         <th>Descripcion</th>
                         <th>Acciones</th>
                     </thead>
@@ -27,6 +28,7 @@
                             <td>{{videojuego.anio}}</td>
                             <td>{{videojuego.categoria}}</td>
                             <td>{{videojuego.precio}}</td>
+                            <td>{{videojuego.stock}}</td>
                             <td>{{videojuego.descripcion}}</td>
                             <td>
                                 <a href="{% url 'videojuego:detalles_videojuego' videojuego.id %}">Detalles</a>
