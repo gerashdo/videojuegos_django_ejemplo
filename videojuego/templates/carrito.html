@@ -40,11 +40,11 @@
                     </tr>
                 </tbody>
             </table>
-            <a href="{% url 'videojuego:cancelar_carrito_videojuego' %}">
-                <button class="btn btn-secondary">Cancelar</button>
+            <a class="btn btn-secondary {% if request.session.cuantos == 0 %}disabled{% endif %}" href="{% url 'videojuego:cancelar_carrito_videojuego' %}">
+                Cancelar
             </a>
-            <a href="">
-                <button class="btn btn-primary">Finalizar pedido</button>
+            <a class="btn btn-primary {% if request.session.cuantos == 0 %}disabled{% endif %}" href="">
+                Finalizar pedido
             </a>
         </div>
     </div>
