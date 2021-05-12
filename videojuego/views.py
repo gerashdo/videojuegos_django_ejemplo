@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Categoria, Videojuego
+from .models import Categoria, Videojuego, Venta, DetalleVenta
+from usuarios.models import Usuario
 from .form_categoria import CategoriaForm
 from .form_videojuego import VideojuegoForm, CarritoCantidadForm
 from django.views.generic import ListView, TemplateView
@@ -142,6 +143,25 @@ def cancelar_carrito(request):
         juego.stock = juego.stock + videojuego['cantidad']
         juego.save()
     
+    request.session['videojuegos'] = {}
+    request.session['cuantos'] = 0
+    request.session['total'] = 0
+    return redirect('videojuego:lista_compra_videojuego')
+
+def realizar_orden(request):
+    usuario = Usuario.objects.get(id=request.user.id)
+    venta = Venta.objects.create(usuario=usuario, total=request.session['total'])
+    venta.save()
+    for llave, articulo in request.session['videojuegos'].items():
+        detalle_venta = DetalleVenta.objects.create(
+            venta=venta,
+            id_videojuego=llave,
+            titulo_videojuego=articulo['titulo'],
+            precio=articulo['precio'],
+            cantidad=articulo['cantidad'],
+            total=articulo['total']
+        )
+        detalle_venta.save()
     request.session['videojuegos'] = {}
     request.session['cuantos'] = 0
     request.session['total'] = 0

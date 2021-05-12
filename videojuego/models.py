@@ -28,8 +28,8 @@ class Venta(models.Model):
 
 class DetalleVenta(models.Model):
     venta = models.ForeignKey("videojuego.Venta", verbose_name='Venta', on_delete=models.CASCADE)
-    id_videojuego = models.CharField('Titulo', max_length=50, unique=True)
-    titulo_videojuego = models.CharField('Titulo', max_length=50, unique=True)
+    id_videojuego = models.IntegerField('ID_Videojuego')
+    titulo_videojuego = models.CharField('Titulo', max_length=50)
     precio = models.DecimalField(max_digits=6, decimal_places=2)
     cantidad = models.IntegerField('cantidad')
     total = models.DecimalField(max_digits=7, decimal_places=2)

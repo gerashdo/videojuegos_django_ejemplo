@@ -43,7 +43,7 @@
             <a class="btn btn-secondary {% if request.session.cuantos == 0 %}disabled{% endif %}" href="{% url 'videojuego:cancelar_carrito_videojuego' %}">
                 Cancelar
             </a>
-            <a class="btn btn-primary {% if request.session.cuantos == 0 %}disabled{% endif %}" href="">
+            <a class="btn btn-primary {% if request.session.cuantos == 0 %}disabled{% endif %}" href="{% url 'videojuego:realizar_orden_videojuego' %}">
                 Finalizar pedido
             </a>
         </div>
