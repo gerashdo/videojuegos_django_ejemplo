@@ -15,4 +15,5 @@ urlpatterns = [
     path('lista-compra/', views.VideojuegoCompraList.as_view(), name='lista_compra_videojuego'),
     path('comprar/<int:pk>', views.videojuego_comprar, name='comprar_videojuego'),
     path('carrito/', views.carrito, name='carrito_videojuego'),
+    path('cancelar-carrito/', views.cancelar_carrito, name='cancelar_carrito_videojuego'),
 ]

@@ -131,12 +131,18 @@ def videojuego_comprar(request, pk):
     return redirect('videojuego:lista_compra_videojuego')
 
 def carrito(request):
-    # print('LEGUE')
-    # print(request.session['videojuegos'])
-    # for videojuego in request.session['videojuegos']:
-    #     print(request.session[videojuego]['cantidad'])
-    #     print(request.session[videojuego]['precio'])
     return render(request,'carrito.html')
+
+def cancelar_carrito(request):
+    for llave, videojuego in request.session['videojuegos'].items():
+        juego = Videojuego.objects.get(id=llave)
+        juego.stock = juego.stock + videojuego['cantidad']
+        juego.save()
+    
+    request.session['videojuegos'] = {}
+    request.session['cuantos'] = 0
+    request.session['total'] = 0
+    return redirect('videojuego:lista_compra_videojuego')
 
 class VideojuegoEliminar(DeleteView):
     model = Videojuego
