@@ -110,25 +110,26 @@ class VideojuegoCompraList(ListView):
     #queryset = Videojuego.objects.filter(anio=1992)
 
 def videojuego_comprar(request, pk):
-    videojuego = get_object_or_404(Videojuego, pk=pk)
-    cuantos = int(request.POST.get('cantidad'))
-    if videojuego.stock >= cuantos:
-        id = str(pk)
-        request.session['total'] = request.session['total'] + (float(videojuego.precio) * cuantos)
-        request.session['cuantos'] = request.session['cuantos'] + cuantos
-        if id in request.session['videojuegos']:
-            request.session['videojuegos'][id]['cantidad'] = request.session['videojuegos'][id]['cantidad'] + cuantos
-            request.session['videojuegos'][id]['total'] = request.session['videojuegos'][id]['total'] + (float(videojuego.precio) * cuantos)
-        else:
-            request.session['videojuegos'][id] = {
-                'titulo': videojuego.titulo,
-                'precio': float(videojuego.precio), 
-                'cantidad': cuantos, 
-                'total': float(videojuego.precio) * cuantos
-                }
+    if request.method == 'POST':
+        videojuego = get_object_or_404(Videojuego, pk=pk)
+        cuantos = int(request.POST.get('cantidad'))
+        if videojuego.stock >= cuantos:
+            id = str(pk)
+            request.session['total'] = request.session['total'] + (float(videojuego.precio) * cuantos)
+            request.session['cuantos'] = request.session['cuantos'] + cuantos
+            if id in request.session['videojuegos']:
+                request.session['videojuegos'][id]['cantidad'] = request.session['videojuegos'][id]['cantidad'] + cuantos
+                request.session['videojuegos'][id]['total'] = request.session['videojuegos'][id]['total'] + (float(videojuego.precio) * cuantos)
+            else:
+                request.session['videojuegos'][id] = {
+                    'titulo': videojuego.titulo,
+                    'precio': float(videojuego.precio), 
+                    'cantidad': cuantos, 
+                    'total': float(videojuego.precio) * cuantos
+                    }
 
-        videojuego.stock = videojuego.stock - cuantos
-        videojuego.save()
+            videojuego.stock = videojuego.stock - cuantos
+            videojuego.save()
 
     return redirect('videojuego:lista_compra_videojuego')
 

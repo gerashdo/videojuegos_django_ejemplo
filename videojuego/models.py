@@ -1,6 +1,7 @@
 # from django.db.models.fields.related import ForeignKey
 #from videojuegos import usuarios
 from django.db import models
+from django.db.models.fields.related import ForeignKey
 
 class Videojuego(models.Model):
     # sin id
@@ -21,8 +22,14 @@ class Categoria(models.Model):
         return self.nombre
 
 # class Venta(models.Model):
-#     fecha
-#     usuario
+#     fecha = models.DateField()
+#     usuario = models.ForeignKey("usuarios.Usuario", verbose_name='Usuario', on_delete=models.CASCADE)
+#     total = models.DecimalField(max_digits=8, decimal_places=2)
 
 # class DetalleVenta(models.Model):
-#     videojuego = models.ForeignKey("videojuego.Videojuego", verbose_name="Videojuego", on_delete=models.CASCADE)
+#     venta = models.ForeignKey("usuarios.Venta", verbose_name='Venta', on_delete=models.CASCADE)
+#     id_videojuego = models.CharField('Titulo', max_length=50, unique=True)
+#     titulo_videojuego = models.CharField('Titulo', max_length=50, unique=True)
+#     precio = models.DecimalField(max_digits=5, decimal_places=2)
+#     cantidad = models.IntegerField('cantidad')
+#     total = models.DecimalField(max_digits=7, decimal_places=2)
