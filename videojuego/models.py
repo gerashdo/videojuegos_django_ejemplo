@@ -1,5 +1,5 @@
-from django.db.models.fields.related import ForeignKey
-from videojuegos import usuarios
+# from django.db.models.fields.related import ForeignKey
+#from videojuegos import usuarios
 from django.db import models
 
 class Videojuego(models.Model):
@@ -20,9 +20,9 @@ class Categoria(models.Model):
     def __str__(self):
         return self.nombre
 
-class Venta(models.Model):
-    fecha
-    usuario
+# class Venta(models.Model):
+#     fecha
+#     usuario
 
-class DetalleVenta(models.Model):
-    videojuego = models.ForeignKey("videojuego.Videojuego", verbose_name="Videojuego", on_delete=models.CASCADE)
+# class DetalleVenta(models.Model):
+#     videojuego = models.ForeignKey("videojuego.Videojuego", verbose_name="Videojuego", on_delete=models.CASCADE)

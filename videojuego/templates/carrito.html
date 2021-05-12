@@ -1,0 +1,50 @@
+{% extends 'base2.html' %}
+
+
+{% block titulo %}
+    Carrito
+{% endblock titulo %}
+    
+
+{% block contenido %}
+<h1>Carrito de Compras</h1>
+
+<div class="card">
+    <div class="card-body">
+            <table class="table">
+                <thead>
+                    <th>Titulo</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Total</th>
+                </thead>
+                <tbody>
+                    {% for llave, valor in request.session.videojuegos.items %}
+                        <tr>
+                        {% for llave2, valor2 in valor.items %}
+                            <td>
+                                {% if llave2 == 'precio' or llave2 == 'total'  %}
+                                    ${{valor2|floatformat}}
+                                {% else %}
+                                    {{valor2}}
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="3"></td>
+                        <td>
+                            ${{request.session.total}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <a href="">
+                <button class="btn btn-primary">Finalizar pedido</button>
+            </a>
+            
+        </div>
+    </div>
+{% endblock contenido %}
+    

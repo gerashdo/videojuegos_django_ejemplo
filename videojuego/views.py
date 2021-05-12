@@ -102,7 +102,7 @@ class VideojuegoList(ListView):
     #queryset = Videojuego.objects.filter(anio=1992)
 
 class VideojuegoCompraList(ListView):
-    paginate_by = 2
+    paginate_by = 4
     model = Videojuego
     template_name = 'lista_videojuegos.html'
     #extra_context = {'vj-lista':True}
@@ -116,13 +116,27 @@ def videojuego_comprar(request, pk):
         request.session['cuantos'] = request.session['cuantos'] + 1
         if id in request.session['videojuegos']:
             request.session['videojuegos'][id]['cantidad'] = request.session['videojuegos'][id]['cantidad'] + 1
+            request.session['videojuegos'][id]['total'] = request.session['videojuegos'][id]['total'] + float(videojuego.precio)
         else:
-            request.session['videojuegos'][id] = {'precio':float(videojuego.precio), 'cantidad':1}
+            request.session['videojuegos'][id] = {
+                'titulo': videojuego.titulo,
+                'precio': float(videojuego.precio), 
+                'cantidad': 1, 
+                'total': float(videojuego.precio)
+                }
 
         videojuego.stock = videojuego.stock - 1
         videojuego.save()
 
     return redirect('videojuego:lista_compra_videojuego')
+
+def carrito(request):
+    # print('LEGUE')
+    # print(request.session['videojuegos'])
+    # for videojuego in request.session['videojuegos']:
+    #     print(request.session[videojuego]['cantidad'])
+    #     print(request.session[videojuego]['precio'])
+    return render(request,'carrito.html')
 
 class VideojuegoEliminar(DeleteView):
     model = Videojuego

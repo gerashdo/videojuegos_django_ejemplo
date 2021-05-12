@@ -12,6 +12,7 @@ urlpatterns = [
     path('grafica/', views.Grafica.as_view(), name='grafica_videojuego'),
     path('lista-pdf/', views.VideojuegoListPdf.as_view(), name='lista_pdf_videojuego'),
     path('vidojuego-pdf/<int:pk>', views.VideojuegoDetallePdf.as_view(), name='detalle_pdf_videojuego'),
-    path('lista-compra', views.VideojuegoCompraList.as_view(), name='lista_compra_videojuego'),
+    path('lista-compra/', views.VideojuegoCompraList.as_view(), name='lista_compra_videojuego'),
     path('comprar/<int:pk>', views.videojuego_comprar, name='comprar_videojuego'),
+    path('carrito/', views.carrito, name='carrito_videojuego'),
 ]
