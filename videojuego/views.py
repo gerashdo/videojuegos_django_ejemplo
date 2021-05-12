@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Categoria, Videojuego
-from .form_categoria import CategoriaForm, VideojuegoForm
-#from .form_videojuego import VideojuegoForm
+from .form_categoria import CategoriaForm
+from .form_videojuego import VideojuegoForm, CarritoCantidadForm
 from django.views.generic import ListView, TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
@@ -103,29 +103,31 @@ class VideojuegoList(ListView):
 
 class VideojuegoCompraList(ListView):
     paginate_by = 4
+    form = CarritoCantidadForm
     model = Videojuego
     template_name = 'lista_videojuegos.html'
-    #extra_context = {'vj-lista':True}
+    extra_context = {'form':form}
     #queryset = Videojuego.objects.filter(anio=1992)
 
 def videojuego_comprar(request, pk):
     videojuego = get_object_or_404(Videojuego, pk=pk)
-    if videojuego.stock > 0:
+    cuantos = int(request.POST.get('cantidad'))
+    if videojuego.stock >= cuantos:
         id = str(pk)
-        request.session['total'] = request.session['total'] + float(videojuego.precio)
-        request.session['cuantos'] = request.session['cuantos'] + 1
+        request.session['total'] = request.session['total'] + (float(videojuego.precio) * cuantos)
+        request.session['cuantos'] = request.session['cuantos'] + cuantos
         if id in request.session['videojuegos']:
-            request.session['videojuegos'][id]['cantidad'] = request.session['videojuegos'][id]['cantidad'] + 1
-            request.session['videojuegos'][id]['total'] = request.session['videojuegos'][id]['total'] + float(videojuego.precio)
+            request.session['videojuegos'][id]['cantidad'] = request.session['videojuegos'][id]['cantidad'] + cuantos
+            request.session['videojuegos'][id]['total'] = request.session['videojuegos'][id]['total'] + (float(videojuego.precio) * cuantos)
         else:
             request.session['videojuegos'][id] = {
                 'titulo': videojuego.titulo,
                 'precio': float(videojuego.precio), 
-                'cantidad': 1, 
-                'total': float(videojuego.precio)
+                'cantidad': cuantos, 
+                'total': float(videojuego.precio) * cuantos
                 }
 
-        videojuego.stock = videojuego.stock - 1
+        videojuego.stock = videojuego.stock - cuantos
         videojuego.save()
 
     return redirect('videojuego:lista_compra_videojuego')

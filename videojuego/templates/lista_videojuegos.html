@@ -17,6 +17,7 @@
                 <th>Categoria</th>
                 <th>Existencia</th>
                 <th>Precio</th>
+                <th>Cantidad</th>
                 <th></th>
             </thead>
             <tbody>
@@ -28,10 +29,13 @@
                         <td>{{videojuego.stock}}</td>
                         <td>{{videojuego.precio}}</td>
                         <td>
-                            <a href="{% url 'videojuego:comprar_videojuego' videojuego.id %}"><button class="btn btn-primary {% if videojuego.stock < 1 %}disabled{% endif %}">
-                                <i class="fas fa-cart-plus"></i>
-                            </button></a>
-                            <a href="">Detalles</a>
+                            <form action="{% url 'videojuego:comprar_videojuego' videojuego.id %}" method="post">
+                                {% csrf_token %}
+                                {{form.cantidad}}
+                                <button class="btn btn-primary {% if videojuego.stock < 1 %}disabled{% endif %}" type="submit">Comprar</button>
+                            </form>
+                            <!-- <a href="{% url 'videojuego:comprar_videojuego' videojuego.id %}"><button class="btn btn-primary {% if videojuego.stock < 1 %}disabled{% endif %}">
+                                <i class="fas fa-cart-plus"></i> -->
                         </td>
                     </tr>
                 {% endfor %}
